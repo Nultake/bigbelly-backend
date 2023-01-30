@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::prefix('/account')
+    ->group(function () {
+
+        //account register route
+        Route::post('/register', function () {
+
+        });
+        //account login route
+        Route::post('/login', function () {
+
+        });
+    });
