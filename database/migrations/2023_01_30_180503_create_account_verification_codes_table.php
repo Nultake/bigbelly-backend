@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('accounts_verification_codes', function (Blueprint $table) {
+        Schema::create('account_verification_codes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('account_id')->constrained();
             $table->unsignedInteger('code')->unique();
             $table->dateTime('expired_at');
-            $table->boolean('is_used');
+            $table->boolean('is_used')->default(false);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts_verification_codes');
+        Schema::dropIfExists('account_verification_codes');
     }
 };

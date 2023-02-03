@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Middleware\CheckEmailUniqueMiddleware;
+use App\Http\Middleware\CheckUsernameUniqueMiddleware;
+use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,11 +26,8 @@ Route::prefix('/account')
     ->group(function () {
 
         //account register route
-        Route::post('/register', function () {
+        Route::post('/register', [AccountController::class, 'register'])->middleware('register');
 
-        });
         //account login route
-        Route::post('/login', function () {
-
-        });
+        Route::post('/login', [AccountController::class, 'login']);
     });

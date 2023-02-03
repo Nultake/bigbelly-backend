@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('email');
-            $table->boolean('is_verified');
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
         });
     }
