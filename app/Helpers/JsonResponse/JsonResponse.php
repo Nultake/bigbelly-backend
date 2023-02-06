@@ -29,7 +29,7 @@ class JsonResponse
         return $response->success(false)
             ->message($message)
             ->payload($payload)
-            ->status(200)
+            ->status(500)
             ->headers(self::HEADERS)
             ->sendResponse();
     }
