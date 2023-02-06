@@ -9,6 +9,8 @@ use App\Models\Account;
 use App\Models\AccountVerificationCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -29,6 +31,8 @@ class AccountController extends Controller
     public function register(Request $request)
     {
         $payload = $request->all();
+
+        $payload['password'] = Hash::make($payload['password']);
 
         $account = Account::create($payload);
 
