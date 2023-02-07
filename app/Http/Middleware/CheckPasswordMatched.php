@@ -6,8 +6,9 @@ use App\Helpers\JsonResponse\JsonResponse;
 use App\Models\Account;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class CheckUsernameUniqueMiddleware
+class CheckPasswordMatched
 {
     /**
      * Handle an incoming request.
@@ -18,14 +19,15 @@ class CheckUsernameUniqueMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $username = $request->input('username');
-
-        $account = Account::where('username', $username)
-            ->get();
+        $username = $request('username');
 
 
-        if ($account->count() > 0)
-            return JsonResponse::error('Username already exists');
+        $account = Account::where('username', $username)->first();
+
+        $password = $request('password');
+
+        if (!Hash::check($password, $account->password))
+            return JsonResponse::error('Password is incorrect!');
 
         return $next($request);
     }

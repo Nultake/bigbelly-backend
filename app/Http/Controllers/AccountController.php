@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\JsonResponse\JsonResponse;
-use App\Helpers\VerificationCreators\SixDigitCreator;
 use App\Helpers\VerificationGenerators\SixDigitGenerator;
 use App\Models\Account;
 use App\Models\AccountVerificationCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
+    /*
+        $payload = {
+            username :
+            password:
+        }
+    */
     public function login(Request $request)
     {
-        dd($request->input('id'));
+        $username = $request('username');
+
+        $account = Account::where('username', $username)->first();
+
+        return JsonResponse::success('Login successful', [
+            'id' => $account->id,
+            'username' => $account->username
+        ]);
     }
 
 
@@ -43,5 +54,30 @@ class AccountController extends Controller
         ]);
 
         return JsonResponse::success();
+    }
+    /*
+        $payload = {
+            id :
+            code :
+        }
+    */
+    public function verificate(Request $request)
+    {
+        $verificationCode = $request->input('code');
+        $accountID = $request->input('id');
+
+        $accountVerificationCode = AccountVerificationCode::where([
+            'account_id' => $accountID,
+            'is_used' => false
+        ])->whereDate('expired_at', '<', Carbon::now())
+            ->first();
+
+        if ($verificationCode != $accountVerificationCode->code)
+            return JsonResponse::error('Verification code is incorrect!');
+
+        Account::where('id', $accountID)
+            ->update(['is_verified' => true]);
+
+        $accountVerificationCode->update(['is_used' => true]);
     }
 }

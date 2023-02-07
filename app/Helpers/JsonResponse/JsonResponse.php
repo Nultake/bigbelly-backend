@@ -33,4 +33,17 @@ class JsonResponse
             ->headers(self::HEADERS)
             ->sendResponse();
     }
+
+    public static function redirect($message = 'Request has redirected', $payload = [])
+    {
+        $response = new Response();
+
+
+        return $response->success(true)
+            ->message($message)
+            ->payload($payload)
+            ->status(300)
+            ->headers(self::HEADERS)
+            ->sendResponse();
+    }
 }

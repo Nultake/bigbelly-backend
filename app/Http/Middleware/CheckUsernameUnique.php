@@ -7,7 +7,7 @@ use App\Models\Account;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckEmailUniqueMiddleware
+class CheckUsernameUnique
 {
     /**
      * Handle an incoming request.
@@ -18,13 +18,14 @@ class CheckEmailUniqueMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $email = $request->input('email');
+        $username = $request->input('username');
 
-        $account = Account::where('email', $email)
+        $account = Account::where('username', $username)
             ->get();
 
+
         if ($account->count() > 0)
-            return JsonResponse::error('Email already exists');
+            return JsonResponse::error('Username already exists');
 
         return $next($request);
     }

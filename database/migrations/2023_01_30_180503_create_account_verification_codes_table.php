@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('account_verification_codes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('account_id')->constrained();
-            $table->unsignedInteger('code')->unique();
+            $table->unsignedInteger('code');
             $table->dateTime('expired_at');
             $table->boolean('is_used')->default(false);
             $table->timestamps();

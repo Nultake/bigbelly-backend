@@ -29,5 +29,8 @@ Route::prefix('/account')
         Route::post('/register', [AccountController::class, 'register'])->middleware('register');
 
         //account login route
-        Route::post('/login', [AccountController::class, 'login']);
+        Route::post('/login', [AccountController::class, 'login'])->middleware('login');
+
+        //account verification
+        Route::post('/verificate', [AccountController::class, 'verificate']);
     });

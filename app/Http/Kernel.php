@@ -45,9 +45,15 @@ class Kernel extends HttpKernel
         ],
 
         'register' => [
-            \App\Http\Middleware\CheckUsernameUniqueMiddleware::class,
-            \App\Http\Middleware\CheckEmailUniqueMiddleware::class
-        ]
+            \App\Http\Middleware\CheckUsernameUnique::class,
+            \App\Http\Middleware\CheckEmailUnique::class
+        ],
+
+        'login' => [
+            \App\Http\Middleware\CheckUsernameValid::class,
+            \App\Http\Middleware\CheckPasswordMatched::class,
+            \App\Http\Middleware\CheckNeedVerification::class
+        ],
     ];
 
     /**
