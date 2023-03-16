@@ -24,7 +24,7 @@ class CheckPasswordMatched
 
         $account = Account::where('username', $username)->first();
 
-        $password = $request('password');
+        $password = $request->input('password');
 
         if (!Hash::check($password, $account->password))
             return JsonResponse::error('Password is incorrect!');
