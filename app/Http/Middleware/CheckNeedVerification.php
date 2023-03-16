@@ -21,7 +21,7 @@ class CheckNeedVerification
      */
     public function handle(Request $request, Closure $next)
     {
-        $username = $request('username');
+        $username = $request->input('username');
 
 
         $account = Account::where('username', $username)->first();
