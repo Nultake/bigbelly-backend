@@ -20,7 +20,7 @@ class AccountController extends Controller
     */
     public function login(Request $request)
     {
-        $username = $request('username');
+        $username = $request->input('username');
 
         $account = Account::where('username', $username)->first();
 
@@ -69,7 +69,7 @@ class AccountController extends Controller
         $accountVerificationCode = AccountVerificationCode::where([
             'account_id' => $accountID,
             'is_used' => false
-        ])->whereDate('expired_at', '<', Carbon::now())
+        ])->whereDate('expired_at', '>', Carbon::now())
         ->get()
         ->first();
 
@@ -80,5 +80,7 @@ class AccountController extends Controller
             ->update(['is_verified' => true]);
 
         $accountVerificationCode->update(['is_used' => true]);
+
+        return JsonResonse::success('Verification has done');
     }
 }
