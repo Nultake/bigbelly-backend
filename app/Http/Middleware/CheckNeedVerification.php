@@ -30,7 +30,8 @@ class CheckNeedVerification
             $accountVerificationCode = AccountVerificationCode::where([
                 'account_id' => $account->id,
                 'is_used' => false
-            ])->whereDate('expired_at', '<', Carbon::now())
+            ])->where('expired_at', '>', Carbon::now())
+                ->get()
                 ->first();
 
             if ($accountVerificationCode == null)
