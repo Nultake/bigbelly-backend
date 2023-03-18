@@ -84,6 +84,6 @@ class AccountController extends Controller
 
         $accountVerificationCode->update(['is_used' => true]);
 
-        return JsonResonse::success('Verification has done');
+        return JsonResponse::success('Verification has done');
     }
 }
