@@ -69,9 +69,12 @@ class AccountController extends Controller
         $accountVerificationCode = AccountVerificationCode::where([
             'account_id' => $accountID,
             'is_used' => false
-        ])->whereDate('expired_at', '>', Carbon::now())
+        ])->where('expired_at', '>', Carbon::now())
         ->get()
         ->first();
+
+        if ($accountVerificationCode->code == null)
+            return JsonResponse::error('Verification code expired!');
 
         if ($verificationCode != $accountVerificationCode->code)
             return JsonResponse::error('Verification code is incorrect!');
