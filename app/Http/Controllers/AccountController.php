@@ -27,7 +27,6 @@ class AccountController extends Controller
         return JsonResponse::success('Login successful', [
             'id' => $account->id,
             'username' => $account->username,
-            'email' => $account->email,
         ]);
 
     }
