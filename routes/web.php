@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckEmailUniqueMiddleware;
 use App\Http\Middleware\CheckUsernameUniqueMiddleware;
 use App\Models\Account;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +35,22 @@ Route::prefix('/account')
 
         //account verification
         Route::post('/verificate', [AccountController::class, 'verificate']);
+    });
+
+Route::prefix('/profile')
+    ->group(function () {
+
+        Route::prefix('/followers')
+            ->group(function () {
+
+                Route::get('/count', [ProfileController::class, 'count']);
+
+                Route::post('/follow', [ProfileController::class, 'follow'])->middleware('follow');
+
+                Route::post('/accept', [ProfileController::class, 'accept']);
+
+                Route::post('/decline', [ProfileController::class, 'decline']);
+
+                Route::get('/requests', [ProfileController::class, 'requests']);
+            });
     });

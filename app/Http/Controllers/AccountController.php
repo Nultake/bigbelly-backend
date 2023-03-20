@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\JsonResponse\JsonResponse;
 use App\Helpers\VerificationGenerators\SixDigitGenerator;
 use App\Models\Account;
+use App\Models\AccountPrivacySetting;
 use App\Models\AccountVerificationCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +29,6 @@ class AccountController extends Controller
             'id' => $account->id,
             'username' => $account->username,
         ]);
-
     }
 
 
@@ -54,6 +54,10 @@ class AccountController extends Controller
             'expired_at' => Carbon::now()->addMinutes(10)
         ]);
 
+        AccountPrivacySetting::create([
+            'account_id' => $account->id
+        ]);
+
         return JsonResponse::success();
     }
     /*
@@ -71,8 +75,8 @@ class AccountController extends Controller
             'account_id' => $accountID,
             'is_used' => false
         ])->where('expired_at', '>', Carbon::now())
-        ->get()
-        ->first();
+            ->get()
+            ->first();
 
         if ($accountVerificationCode->code == null)
             return JsonResponse::error('Verification code expired!');
