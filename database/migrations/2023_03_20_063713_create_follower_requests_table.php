@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('account_id')->constrained();
             $table->foreignId('followed_account_id')->constrained()->on('accounts');
-            $table->boolean('is_accepted')->default(false);
             $table->timestamps();
         });
     }

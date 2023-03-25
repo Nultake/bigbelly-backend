@@ -11,6 +11,8 @@ class AccountPrivacySetting extends Model
 
     protected $guarded = [];
 
+    protected $casts = ['is_private' => 'boolean'];
+
     public function account()
     {
         return $this->belongsTo(Account::class);

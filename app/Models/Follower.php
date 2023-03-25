@@ -18,6 +18,6 @@ class Follower extends Model
 
     public function followed_account()
     {
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class, 'followed_account_id');
     }
 }

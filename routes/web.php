@@ -40,17 +40,30 @@ Route::prefix('/account')
 Route::prefix('/profile')
     ->group(function () {
 
+        Route::prefix('/{id}')
+            ->group(function () {
+
+                Route::get('/', [ProfileController::class, 'info']);
+
+                Route::get('/requests', [ProfileController::class, 'requests']);
+
+                Route::get('/followers', [ProfileController::class, 'followers']);
+                Route::get('/followeds', [ProfileController::class, 'followeds']);
+
+                Route::post('/edit', [ProfileController::class, 'edit']);
+            });
+
         Route::prefix('/followers')
             ->group(function () {
 
-                Route::get('/count', [ProfileController::class, 'count']);
+                Route::post('/unfollow', [ProfileController::class, 'unfollow']);
+
+                Route::post('/cancel-follow-request', [ProfileController::class, 'cancelFollowRequest']);
 
                 Route::post('/follow', [ProfileController::class, 'follow'])->middleware('follow');
 
                 Route::post('/accept', [ProfileController::class, 'accept']);
 
                 Route::post('/decline', [ProfileController::class, 'decline']);
-
-                Route::get('/requests', [ProfileController::class, 'requests']);
             });
     });
