@@ -12,7 +12,7 @@ class ProfileController extends Controller
 {
     public function info(Request $request, $id)
     {
-        $user = Account::with(['privacy_setting', 'followers', 'followeds'])->find($id);
+        $user = Account::with(['privacy_setting', 'followers.account', 'followeds.followed_account'])->find($id);
 
         return JsonResponse::success('Request has succeed!', [
             'user' => $user->toArray()
