@@ -19,6 +19,20 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $user = Account::with(['privacy_setting', 'followers.account', 'followeds.followed_account'])
+            ->where('username', $request->input('username'))
+            ->first();
+
+        if ($user === null)
+            return JsonResponse::error('Username could not found');
+
+        return JsonResponse::success('Request has succeed!', [
+            'user' => $user->toArray()
+        ]);
+    }
+
     public function followers(Request $request, $id)
     {
         $followers = Account::find($id)->followers()->with('account')->get();

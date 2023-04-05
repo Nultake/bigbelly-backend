@@ -40,6 +40,8 @@ Route::prefix('/account')
 Route::prefix('/profile')
     ->group(function () {
 
+        Route::get('/search', [ProfileController::class, 'search']);
+
         Route::prefix('/{id}')
             ->group(function () {
 
