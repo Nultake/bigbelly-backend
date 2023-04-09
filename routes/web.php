@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckEmailUniqueMiddleware;
 use App\Http\Middleware\CheckUsernameUniqueMiddleware;
@@ -68,4 +70,14 @@ Route::prefix('/profile')
 
                 Route::post('/decline', [ProfileController::class, 'decline']);
             });
+    });
+
+Route::prefix('/post')
+    ->group(function () {
+        Route::post('/create', [PostController::class, 'create']);
+
+        Route::get('/ingredients', [IngredientController::class, 'all']);
+
+        Route::post('/like', [PostController::class, 'like']);
+        Route::post('/comment', [PostController::class, 'comment']);
     });
