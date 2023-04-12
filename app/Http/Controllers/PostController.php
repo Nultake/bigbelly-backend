@@ -16,6 +16,7 @@ class PostController extends Controller
     public function create(Request $request)
     {
         $post = [
+            'account_id' => $request->input('account_id'),
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'difficulty' => $request->input('difficulty'),
