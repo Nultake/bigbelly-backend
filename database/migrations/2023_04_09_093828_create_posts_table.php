@@ -19,9 +19,9 @@ return new class extends Migration
             $table->foreignId('account_id')->constrained();
 
             $table->string('title');
-            $table->string('descripton')->nullable();
+            $table->string('description')->nullable();
 
-            $table->string('difficulty');
+            $table->string('difficulty')->nullable();
 
             $table->unsignedTinyInteger('portion')->default(1);
 
