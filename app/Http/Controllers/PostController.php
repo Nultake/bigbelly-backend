@@ -55,7 +55,7 @@ class PostController extends Controller
             $createPostIngredients[] = $ingredient;
         }
 
-
+        dd($createPostTags);
         PostTag::insert($createPostTags);
 
         PostStep::insert($createPostSteps);
