@@ -38,7 +38,7 @@ class PostController extends Controller
         $createPostSteps = [];
 
         foreach ($postTags as $tag) {
-            $tab['post_id'] = $postId;
+            $tag['post_id'] = $postId;
 
             $createPostTags[] = $tag;
         }
@@ -55,7 +55,6 @@ class PostController extends Controller
             $createPostIngredients[] = $ingredient;
         }
 
-        dd($createPostTags);
         PostTag::insert($createPostTags);
 
         PostStep::insert($createPostSteps);
