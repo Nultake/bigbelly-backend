@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('post_ingredient', function (Blueprint $table) {
+        Schema::create('post_ingredients', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('post_id')->constrained();
