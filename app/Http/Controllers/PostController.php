@@ -25,11 +25,11 @@ class PostController extends Controller
             'baking_time' => $request->input('baking_time'),
         ];
 
-        $postSteps = $request->input('steps');
+        $postSteps = $request->input('steps.*');
 
-        $postIngredients = $request->input('ingredients');
+        $postIngredients = $request->input('ingredients.*');
 
-        $postTags = $request->input('tags');
+        $postTags = $request->input('tags.*');
 
         $postId = Post::create($post)->id;
 
