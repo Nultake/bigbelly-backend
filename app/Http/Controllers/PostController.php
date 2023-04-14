@@ -27,6 +27,8 @@ class PostController extends Controller
 
         $postSteps = $request->input('steps.*');
 
+        dd($postSteps);
+
         $postIngredients = $request->input('ingredients.*');
 
         $postTags = $request->input('tags.*');
