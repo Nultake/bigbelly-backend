@@ -31,13 +31,36 @@ class PostController extends Controller
 
         $postTags = $request->input('tags');
 
-        Post::create($post);
+        $postId = Post::create($post)->id;
 
-        PostTag::insert($postTags);
+        $createPostTags = [];
+        $createPostIngredients = [];
+        $createPostSteps = [];
 
-        PostStep::insert($postSteps);
+        foreach ($postTags as $tag) {
+            $tab['post_id'] = $postId;
 
-        PostIngredient::insert($postIngredients);
+            $createPostTags[] = $tag;
+        }
+
+        foreach ($postSteps as $step) {
+            $step['post_id'] = $postId;
+
+            $createPostSteps[] = $step;
+        }
+
+        foreach ($postIngredients as $ingredient) {
+            $ingredient['post_id'] = $postId;
+
+            $createPostIngredients[] = $ingredient;
+        }
+
+
+        PostTag::insert($createPostTags);
+
+        PostStep::insert($createPostSteps);
+
+        PostIngredient::insert($createPostIngredients);
 
         return JsonResponse::success();
     }
