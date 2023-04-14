@@ -25,7 +25,7 @@ class PostController extends Controller
             'baking_time' => $request->input('baking_time'),
         ];
 
-        $postSteps = $request->input('steps.*');
+        $postSteps = $request->input('steps');
 
         dd($postSteps);
 
