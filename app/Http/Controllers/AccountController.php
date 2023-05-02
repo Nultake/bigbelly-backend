@@ -23,11 +23,12 @@ class AccountController extends Controller
     {
         $username = $request->input('username');
 
-        $account = Account::where('username', $username)->first();
+        $account = Account::with('privacy_setting')->where('username', $username)->first();
 
         return JsonResponse::success('Login successful', [
             'id' => $account->id,
             'username' => $account->username,
+            'privacy' => $account->privacy_setting->is_private,
         ]);
     }
 
