@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Follower;
 use App\Models\FollowerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -60,6 +61,27 @@ class ProfileController extends Controller
         $currentPrivacy->update(['is_private' => $privacySetting]);
 
         return JsonResponse::success();
+    }
+
+    public function editProfile(Request $request, $id)
+    {
+        $name = $request->input('name');
+        // $surname = $request->input('surname');
+        $password = $request->input('password');
+        $old_password = $request->input('old_password');
+
+        $account = Account::find($id);
+        if (Hash::check($old_password, $account->password)) {
+            $update_details = [
+                'name' => $name,
+                'password' => $password
+            ];
+
+            $account->update($update_details);
+
+            return JsonResponse::success();
+        }
+        return JsonResponse::error();
     }
 
     public function follow(Request $request)
