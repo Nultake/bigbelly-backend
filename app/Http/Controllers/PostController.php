@@ -71,6 +71,19 @@ class PostController extends Controller
         return JsonResponse::success();
     }
 
+    public function unlike(Request $request)
+    {
+        $accountId = $request->input('account_id');
+        $postId = $request->input('post_id');
+
+        PostLike::where('account_id', $accountId)
+            ->andWhere('post_id', $postId)
+            ->first()
+            ->delete();
+
+        return JsonResponse::success();
+    }
+
     public function comment(Request $request)
     {
         PostComment::create($request->all());

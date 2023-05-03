@@ -36,10 +36,18 @@ class ProfileController extends Controller
 
     public function followers(Request $request, $id)
     {
-        $followers = Account::find($id)->followers()->with('account')->get();
+        $followers = Account::find($id)->followers()->get();
 
         return JsonResponse::success('Request has succeed!', [
             'followers' => $followers->toArray()
+        ]);
+    }
+    public function posts(Request $request, $id)
+    {
+        $posts = Account::find($id)->posts()->with('account')->get();
+
+        return JsonResponse::success('Request has succeed!', [
+            'posts' => $posts->toArray()
         ]);
     }
 

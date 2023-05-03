@@ -54,6 +54,8 @@ Route::prefix('/profile')
                 Route::get('/followers', [ProfileController::class, 'followers']);
                 Route::get('/followeds', [ProfileController::class, 'followeds']);
 
+                Route::get('/posts', [ProfileController::class, 'posts']);
+
                 Route::post('/edit', [ProfileController::class, 'edit']);
             });
 
@@ -79,5 +81,6 @@ Route::prefix('/post')
         Route::get('/ingredients', [IngredientController::class, 'all']);
 
         Route::post('/like', [PostController::class, 'like']);
+        Route::post('/unlike', [PostController::class, 'unlike']);
         Route::post('/comment', [PostController::class, 'comment']);
     });

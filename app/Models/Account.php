@@ -22,4 +22,9 @@ class Account extends Model
     {
         return $this->hasMany(Follower::class,);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
