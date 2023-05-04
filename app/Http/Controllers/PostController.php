@@ -77,7 +77,7 @@ class PostController extends Controller
         $postId = $request->input('post_id');
 
         PostLike::where('account_id', $accountId)
-            ->andWhere('post_id', $postId)
+            ->where('post_id', $postId)
             ->first()
             ->delete();
 
