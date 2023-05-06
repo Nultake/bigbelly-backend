@@ -61,7 +61,9 @@ class PostController extends Controller
 
         PostIngredient::insert($createPostIngredients);
 
-        return JsonResponse::success();
+        return JsonResponse::success('Request has succeed', [
+            'post_id' => $postId
+        ]);
     }
 
     public function like(Request $request)
@@ -87,6 +89,27 @@ class PostController extends Controller
     public function comment(Request $request)
     {
         PostComment::create($request->all());
+
+        return JsonResponse::success();
+    }
+
+    public function getComments(Request $request, int $id)
+    {
+        $comments = Post::find($id)->comments;
+
+        return JsonResponse::success('Request has succeed', [
+            'comments' => $comments->toArray()
+        ]);
+    }
+
+    public function addImage(Request $request, int $id)
+    {
+        $file = $request->file('file');
+
+        $extension = $file->getClientOriginalExtension();
+
+        $fullFileName = $id . '.' . $extension;
+        $file->storeAs('uploads', $fullFileName,  ['disk' => 'local']);
 
         return JsonResponse::success();
     }

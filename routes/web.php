@@ -78,9 +78,13 @@ Route::prefix('/post')
     ->group(function () {
         Route::post('/create', [PostController::class, 'create']);
 
+        Route::post('/{id}/image', [PostController::class, 'addImage']);
+
         Route::get('/ingredients', [IngredientController::class, 'all']);
 
         Route::post('/like', [PostController::class, 'like']);
         Route::post('/unlike', [PostController::class, 'unlike']);
         Route::post('/comment', [PostController::class, 'comment']);
+
+        Route::get('/{id}/comments', [PostController::class, 'getComments']);
     });
