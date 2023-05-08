@@ -10,6 +10,8 @@ use App\Models\PostLike;
 use App\Models\PostStep;
 use App\Models\PostTag;
 use Illuminate\Http\Request;
+use Response;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -112,5 +114,15 @@ class PostController extends Controller
         $file->storeAs('uploads', $fullFileName,  ['disk' => 'local']);
 
         return JsonResponse::success();
+    }
+
+    public function getImage(Request $request, int $id)
+    {
+
+        $file = Storage::get('uploads/' . $id . '.jpg');
+        $type = Storage::mimeType($file);
+        $response = Response::make($file, 200)->header("Content-Type", $type);
+
+        return $response;
     }
 }

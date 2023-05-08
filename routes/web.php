@@ -87,4 +87,5 @@ Route::prefix('/post')
         Route::post('/comment', [PostController::class, 'comment']);
 
         Route::get('/{id}/comments', [PostController::class, 'getComments']);
+        Route::get('/{id}/image', [PostController::class, 'getImage']);
     });
