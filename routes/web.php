@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Middleware\CheckEmailUniqueMiddleware;
 use App\Http\Middleware\CheckUsernameUniqueMiddleware;
 use App\Models\Account;
@@ -88,4 +90,27 @@ Route::prefix('/post')
 
         Route::get('/{id}/comments', [PostController::class, 'getComments']);
         Route::get('/{id}/image', [PostController::class, 'getImage']);
+    });
+
+Route::prefix('/collection')
+    ->group(function () {
+        Route::post('/create', [CollectionController::class, 'create']);
+
+        Route::get('/get', [CollectionController::class, 'get']);
+
+        Route::prefix('/{id}')
+            ->group(function () {
+                Route::post('/delete', [CollectionController::class, 'delete']);
+
+                Route::get('/getPosts', [CollectionController::class, 'getPosts']);
+
+                Route::post('/addPost', [CollectionController::class, 'addPost']);
+                Route::post('/deletePost', [CollectionController::class, 'deletePost']);
+            });
+    });
+
+Route::prefix('/report')
+    ->group(function () {
+        Route::post('/comment', [ReportController::class, 'comment']);
+        Route::post('/post', [ReportController::class, 'post']);
     });
