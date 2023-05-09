@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('reason');
             $table->foreignId('account_id')->constrained();
-            $table->foreignId('comment_id')->constrained();
+            $table->foreignId('comment_id')->constrained('post_comments');
             $table->timestamps();
         });
     }
