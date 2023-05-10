@@ -6,6 +6,7 @@ use App\Helpers\JsonResponse\JsonResponse;
 use App\Models\Account;
 use App\Models\Follower;
 use App\Models\FollowerRequest;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -45,6 +46,38 @@ class ProfileController extends Controller
     public function posts(Request $request, $id)
     {
         $posts = Account::find($id)->posts()->with('account')->get();
+
+        return JsonResponse::success('Request has succeed!', [
+            'posts' => $posts->toArray()
+        ]);
+    }
+
+    public function homePagePosts(Request $request, $id)
+    {
+
+        $skip = $request->input('skip');
+        $take = $request->input('take');
+        $followeds = Account::where('id', $id)->with('followeds')->get();
+
+        $followedIdList = [];
+
+        foreach ($followeds->toArray() as $value)
+            $followedIdList[] = $value['id'];
+
+
+
+        $posts = Post::with([
+            'account',
+            'ingredients',
+            'likes',
+            'steps',
+            'tags',
+            'comments'
+        ])->whereIn('account_id', $followedIdList)
+            ->orderByDesc('created_at')
+            ->skip($skip)
+            ->take($take)
+            ->get();
 
         return JsonResponse::success('Request has succeed!', [
             'posts' => $posts->toArray()

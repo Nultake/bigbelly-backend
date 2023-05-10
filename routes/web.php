@@ -57,6 +57,7 @@ Route::prefix('/profile')
                 Route::get('/followeds', [ProfileController::class, 'followeds']);
 
                 Route::get('/posts', [ProfileController::class, 'posts']);
+                Route::get('/home-page-posts', [ProfileController::class, 'homePagePosts']);
 
                 Route::post('/edit', [ProfileController::class, 'edit']);
             });
