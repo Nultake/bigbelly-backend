@@ -74,6 +74,7 @@ class ProfileController extends Controller
             'tags',
             'comments'
         ])->whereIn('account_id', $followedIdList)
+            ->where('is_archived', false)
             ->orderByDesc('created_at')
             ->skip($skip)
             ->take($take)
