@@ -125,4 +125,18 @@ class PostController extends Controller
 
         return $response;
     }
+
+    public function archive(Request $request, int $id)
+    {
+        Post::find($id)->update(['is_archived' => true]);
+
+        return JsonResponse::success();
+    }
+
+    public function dearchive(Request $request, int $id)
+    {
+        Post::find($id)->update(['is_archived' => true]);
+
+        return JsonResponse::success();
+    }
 }

@@ -83,6 +83,9 @@ Route::prefix('/post')
 
         Route::post('/{id}/image', [PostController::class, 'addImage']);
 
+        Route::post('/{id}/archive', [PostController::class, 'archive']);
+        Route::post('/{id}/dearchive', [PostController::class, 'dearchive']);
+
         Route::get('/ingredients', [IngredientController::class, 'all']);
 
         Route::post('/like', [PostController::class, 'like']);

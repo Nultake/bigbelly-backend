@@ -8,6 +8,10 @@ class Post extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'is_archived' => 'boolean'
+    ];
+
     public function account()
     {
         return $this->belongsTo(Account::class);
