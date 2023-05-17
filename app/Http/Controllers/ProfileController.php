@@ -45,8 +45,12 @@ class ProfileController extends Controller
     }
     public function posts(Request $request, $id)
     {
-        $posts = Account::find($id)->posts()->with([
-            'account',
+        /**
+         * @var Account
+         */
+        $account = Account::findOrFail($id);
+
+        $posts = $account->posts()->with([
             'ingredients',
             'likes',
             'steps',
@@ -55,6 +59,7 @@ class ProfileController extends Controller
         ])->get();
 
         return JsonResponse::success('Request has succeed!', [
+            'account' => $account->toArray(),
             'posts' => $posts->toArray()
         ]);
     }

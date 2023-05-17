@@ -19,7 +19,7 @@ class Post extends Model
 
     public function ingredients()
     {
-        return $this->hasMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class, 'post_ingredients');
     }
 
     public function likes()
