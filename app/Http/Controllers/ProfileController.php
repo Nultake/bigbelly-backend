@@ -52,6 +52,7 @@ class ProfileController extends Controller
 
         $posts = $account->posts()->with([
             'ingredients',
+            'ingredients.ingredient',
             'likes',
             'steps',
             'tags',
@@ -69,11 +70,13 @@ class ProfileController extends Controller
 
         $skip = $request->input('skip');
         $take = $request->input('take');
-        $followeds = Account::where('id', $id)->with('followeds')->get();
+
+        $followeds = Account::find($id)->followeds()->with('followed_account')->get();
+
 
         $followedIdList = [];
 
-        foreach ($followeds->toArray() as $value)
+        foreach ($followeds->toArray()['followed_account'] as $value)
             $followedIdList[] = $value['id'];
 
 
@@ -81,6 +84,7 @@ class ProfileController extends Controller
         $posts = Post::with([
             'account',
             'ingredients',
+            'ingredients.ingredient',
             'likes',
             'steps',
             'tags',
