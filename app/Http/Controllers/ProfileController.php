@@ -92,8 +92,8 @@ class ProfileController extends Controller
         ])->whereIn('account_id', $followedIdList)
             ->where('is_archived', false)
             ->orderByDesc('created_at')
-            ->skip($skip)
-            ->take($take)
+            ->offset($skip)
+            ->limit($take)
             ->get();
 
         return JsonResponse::success('Request has succeed!', [
