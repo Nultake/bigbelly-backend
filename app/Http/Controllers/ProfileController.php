@@ -71,13 +71,13 @@ class ProfileController extends Controller
         $skip = $request->input('skip');
         $take = $request->input('take');
 
-        $followeds = Account::find($id)->followeds()->with('followed_account')->get();
+        $followeds = Account::find($id)->followeds()->get();
 
 
         $followedIdList = [];
 
-        foreach ($followeds->toArray()['followed_account'] as $value)
-            $followedIdList[] = $value['id'];
+        foreach ($followeds->toArray() as $value)
+            $followedIdList[] = $value['followed_account_id'];
 
 
 
