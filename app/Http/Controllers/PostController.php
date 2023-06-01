@@ -97,7 +97,7 @@ class PostController extends Controller
 
     public function getComments(Request $request, int $id)
     {
-        $comments = Post::find($id)->comments->with('account');
+        $comments = Post::find($id)->comments()->with('account');
 
         return JsonResponse::success('Request has succeed', [
             'comments' => $comments->toArray()
