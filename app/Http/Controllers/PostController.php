@@ -9,6 +9,7 @@ use App\Models\PostIngredient;
 use App\Models\PostLike;
 use App\Models\PostStep;
 use App\Models\PostTag;
+use App\Models\RecommendationCriteria;
 use Illuminate\Http\Request;
 use Response;
 use Illuminate\Support\Facades\Storage;
@@ -72,6 +73,29 @@ class PostController extends Controller
     {
         PostLike::create($request->all());
 
+        $postId = $request->input('post_id');
+
+        $accountId = $request->input('account_id');
+
+        $post = Post::with([
+            'ingredients',
+        ])->find($postId);
+
+        $ingredients = array_filter($post->ingredients->pluck('ingredient_id')->toArray());
+
+        RecommendationCriteria::where('account_id', $accountId)
+            ->whereIn('ingredient_id', $ingredients)
+            ->increment('value');
+
+        foreach ($ingredients as $ingredient) {
+            if (RecommendationCriteria::where("account_id", $accountId)->where("ingredient_id", $ingredient)->count() == 0)
+                RecommendationCriteria::create([
+                    'account_id' => $accountId,
+                    'ingredient_id' => $ingredient,
+                    'value' => 1
+                ]);
+        }
+
         return JsonResponse::success();
     }
 
@@ -79,6 +103,16 @@ class PostController extends Controller
     {
         $accountId = $request->input('account_id');
         $postId = $request->input('post_id');
+
+        $post = Post::with([
+            'ingredients',
+        ])->find($postId);
+
+        $ingredients = array_filter($post->ingredients->pluck('ingredient_id')->toArray());
+
+        RecommendationCriteria::where('account_id', $accountId)
+            ->whereIn('ingredient_id', $ingredients)
+            ->decrement('value');
 
         PostLike::where('account_id', $accountId)
             ->where('post_id', $postId)
