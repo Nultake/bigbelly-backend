@@ -60,6 +60,8 @@ Route::prefix('/profile')
                 Route::get('/home-page-posts', [ProfileController::class, 'homePagePosts']);
 
                 Route::post('/edit', [ProfileController::class, 'edit']);
+
+                Route::post('/editProfile', [ProfileController::class, 'editProfile']);
             });
 
         Route::prefix('/followers')
