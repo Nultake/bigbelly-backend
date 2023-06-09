@@ -132,7 +132,7 @@ class ProfileController extends Controller
         if (Hash::check($old_password, $account->password)) {
             $update_details = [
                 'name' => $name,
-                'password' => $password
+                'password' => Hash::make($password)
             ];
 
             $account->update($update_details);
