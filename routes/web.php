@@ -5,6 +5,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Middleware\CheckEmailUniqueMiddleware;
 use App\Http\Middleware\CheckUsernameUniqueMiddleware;
@@ -119,4 +120,9 @@ Route::prefix('/report')
     ->group(function () {
         Route::post('/comment', [ReportController::class, 'comment']);
         Route::post('/post', [ReportController::class, 'post']);
+    });
+
+Route::prefix('/recommendation')
+    ->group(function () {
+        Route::get('/', [RecommendationController::class, 'recommendation']);
     });
