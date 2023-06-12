@@ -189,7 +189,7 @@ class PostController extends Controller
             'steps',
             'tags',
             'comments'
-        ])->where('is_archived', false)
+        ])->where('is_archived', true)
             ->get();
 
         return JsonResponse::success('Request has succeed!', [
