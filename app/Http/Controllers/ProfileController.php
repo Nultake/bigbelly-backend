@@ -57,7 +57,8 @@ class ProfileController extends Controller
             'steps',
             'tags',
             'comments'
-        ])->get();
+        ])->where('is_archived', false)
+            ->get();
 
         return JsonResponse::success('Request has succeed!', [
             'account' => $account->toArray(),

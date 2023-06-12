@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\JsonResponse\JsonResponse;
+use App\Models\Account;
 use App\Models\Post;
 use App\Models\PostComment;
 use App\Models\PostIngredient;
@@ -172,5 +173,27 @@ class PostController extends Controller
         Post::find($id)->update(['is_archived' => true]);
 
         return JsonResponse::success();
+    }
+
+    public function getArchiveds(Request $request)
+    {
+        /**
+         * @var Account
+         */
+        $account = Account::findOrFail($request->input('account_id'));
+
+        $posts = $account->posts()->with([
+            'ingredients',
+            'ingredients.ingredient',
+            'likes',
+            'steps',
+            'tags',
+            'comments'
+        ])->where('is_archived', false)
+            ->get();
+
+        return JsonResponse::success('Request has succeed!', [
+            'posts' => $posts->toArray()
+        ]);
     }
 }

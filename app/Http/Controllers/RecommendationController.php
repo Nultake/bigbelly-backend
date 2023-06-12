@@ -33,7 +33,14 @@ class RecommendationController extends Controller
 
 
         return JsonResponse::success('Request has succeed', [
-            'post' => Post::find($post->post_id)
+            'post' => Post::with([
+                'ingredients',
+                'ingredients.ingredient',
+                'likes',
+                'steps',
+                'tags',
+                'comments'
+            ])->find($post->post_id)
         ]);
     }
 }

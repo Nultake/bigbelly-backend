@@ -5,6 +5,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Middleware\CheckEmailUniqueMiddleware;
@@ -88,6 +89,11 @@ Route::prefix('/post')
 
         Route::post('/{id}/archive', [PostController::class, 'archive']);
         Route::post('/{id}/dearchive', [PostController::class, 'dearchive']);
+        Route::get('/get-archiveds', [PostController::class, 'getArchiveds']);
+
+        Route::post('/{id}/recipe', [RecipeController::class, 'recipe']);
+        Route::post('/{id}/derecipe', [RecipeController::class, 'derecipe']);
+        Route::get('/get-recipes', [RecipeController::class, 'getRecipes']);
 
         Route::get('/ingredients', [IngredientController::class, 'all']);
 
