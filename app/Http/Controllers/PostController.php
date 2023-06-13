@@ -196,4 +196,30 @@ class PostController extends Controller
             'posts' => $posts->toArray()
         ]);
     }
+
+    public function searchByTag(Request $request)
+    {
+        $tag = $request->input('tag');
+
+        $postIds = PostTag::where('name', $tag)->get()->pluck('post_id');
+
+        $posts = Post::with([
+            'ingredients',
+            'ingredients.ingredient',
+            'account',
+            'likes',
+            'steps',
+            'tags',
+            'comments',
+            'account.privacy_setting'
+        ])->whereHas('account.privacy_setting', function ($q) {
+            $q->where('is_private', false);
+        })
+            ->whereIn('id', $postIds)
+            ->get();
+
+        return JsonResponse::success('Request has succeed!', [
+            'posts' => $posts->toArray()
+        ]);
+    }
 }

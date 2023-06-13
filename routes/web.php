@@ -103,6 +103,8 @@ Route::prefix('/post')
 
         Route::get('/{id}/comments', [PostController::class, 'getComments']);
         Route::get('/{id}/image', [PostController::class, 'getImage']);
+
+        Route::get('/search-by-tag', [PostController::class, 'searchByTag']);
     });
 
 Route::prefix('/collection')

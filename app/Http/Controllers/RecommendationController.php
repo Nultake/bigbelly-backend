@@ -31,6 +31,10 @@ class RecommendationController extends Controller
             ->orderBy('post_value', 'desc')
             ->first();
 
+        if ($post === null)
+            return JsonResponse::error('There is no enough information to recommend');
+
+
 
         return JsonResponse::success('Request has succeed', [
             'post' => Post::with([
