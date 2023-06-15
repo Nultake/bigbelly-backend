@@ -49,8 +49,10 @@ class AccountController extends Controller
 
         $account = Account::create($payload);
 
+        $code = SixDigitGenerator::generate();
+
         AccountVerificationCode::create([
-            'code' =>  SixDigitGenerator::generate(),
+            'code' =>  $code,
             'account_id' => $account->id,
             'expired_at' => Carbon::now()->addMinutes(10)
         ]);
@@ -59,7 +61,7 @@ class AccountController extends Controller
             'account_id' => $account->id
         ]);
 
-        return JsonResponse::success();
+        return JsonResponse::success('Request has suceeded', ['code' => $code]);
     }
     /*
         $payload = {
