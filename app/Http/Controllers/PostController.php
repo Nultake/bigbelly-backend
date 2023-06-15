@@ -66,7 +66,7 @@ class PostController extends Controller
 
         PostIngredient::insert($createPostIngredients);
 
-        if (Account::find($request->input('account_id')->is_institutional)) {
+        if (Account::find($request->input('account_id'))->is_institutional) {
             InstitutionalPost::create([
                 'post_id' => $postId,
                 'is_hidden' => $request->input('is_hidden'),
