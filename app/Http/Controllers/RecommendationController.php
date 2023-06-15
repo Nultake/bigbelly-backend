@@ -6,6 +6,7 @@ use App\Helpers\JsonResponse\JsonResponse;
 use App\Models\Ingredient;
 use App\Models\Post;
 use App\Models\PostIngredient;
+use App\Models\PostLike;
 use App\Models\RecommendationCriteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,8 @@ class RecommendationController extends Controller
     public function recommendation(Request $request)
     {
         $accountId = $request->input('account_id');
+
+        $post_likes = PostLike::where('account_id', $accountId)->get();
 
         $post = RecommendationCriteria::select(
             'post_ingredients.post_id',
@@ -27,6 +30,7 @@ class RecommendationController extends Controller
                 'recommendation_criterias.ingredient_id'
             )
             ->where('recommendation_criterias.account_id', $accountId)
+            ->whereNotIn('post_ingredients.post_id', $post_likes->pluck('post_id'))
             ->groupBy('post_ingredients.post_id')
             ->orderBy('post_value', 'desc')
             ->first();
@@ -43,7 +47,8 @@ class RecommendationController extends Controller
                 'likes',
                 'steps',
                 'tags',
-                'comments'
+                'comments',
+                'institutional_post'
             ])->find($post->post_id)
         ]);
     }
