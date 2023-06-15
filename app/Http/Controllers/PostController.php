@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\JsonResponse\JsonResponse;
 use App\Models\Account;
+use App\Models\InstitutionalPost;
 use App\Models\Post;
 use App\Models\PostComment;
 use App\Models\PostIngredient;
@@ -65,6 +66,13 @@ class PostController extends Controller
 
         PostIngredient::insert($createPostIngredients);
 
+        if (Account::find($request->input('account_id')->is_institutional)) {
+            InstitutionalPost::create([
+                'post_id' => $postId,
+                'is_hidden' => $request->input('is_hidden'),
+                'price' => $request->input('price')
+            ]);
+        }
         return JsonResponse::success('Request has succeed', [
             'post_id' => $postId
         ]);

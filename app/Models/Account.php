@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
     protected $guarded = [];
+    protected $casts = ['is_institutional' => 'boolean'];
 
     public function privacy_setting()
     {

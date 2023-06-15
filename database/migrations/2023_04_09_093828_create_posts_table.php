@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('difficulty')->nullable();
 
-            $table->unsignedTinyInteger('portion')->default(1);
+            $table->unsignedTinyInteger('portion')->nullable();
 
             $table->string('preparation_time')->nullable(); // in minute
             $table->string('baking_time')->nullable(); // in minute

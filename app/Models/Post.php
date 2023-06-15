@@ -41,4 +41,8 @@ class Post extends Model
     {
         return $this->hasMany(PostComment::class);
     }
+    public function institutional_post()
+    {
+        return $this->hasOne(InstitutionalPost::class);
+    }
 }

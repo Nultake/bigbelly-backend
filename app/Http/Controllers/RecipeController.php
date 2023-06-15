@@ -37,7 +37,8 @@ class RecipeController extends Controller
             'post.likes',
             'post.steps',
             'post.tags',
-            'post.comments'
+            'post.comments',
+            'post.institutional_post'
         ])->where('account_id', $request->input('account_id'))->get();
 
         return JsonResponse::success('Request has succeed!', [

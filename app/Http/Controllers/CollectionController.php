@@ -45,6 +45,7 @@ class CollectionController extends Controller
             'posts.steps',
             'posts.comments',
             'posts.likes',
+            'posts.institutional_post'
         ])->find($id)->posts;
 
         return JsonResponse::success('Request has succeed', [

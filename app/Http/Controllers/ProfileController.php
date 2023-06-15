@@ -56,7 +56,8 @@ class ProfileController extends Controller
             'likes',
             'steps',
             'tags',
-            'comments'
+            'comments',
+            'institutional_post'
         ])->where('is_archived', false)
             ->get();
 
@@ -90,7 +91,8 @@ class ProfileController extends Controller
             'likes',
             'steps',
             'tags',
-            'comments'
+            'comments',
+            'institutional_post'
         ])->whereIn('account_id', $followedIdList)
             ->where('is_archived', false)
             ->orderByDesc('created_at')
