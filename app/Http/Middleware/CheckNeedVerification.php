@@ -44,6 +44,7 @@ class CheckNeedVerification
             return JsonResponse::redirect('Account needs verification', [
                 'id' => $account->id,
                 'username' => $account->username,
+                'privacy' => $account->privacy_setting->is_private,
                 'email' => $account->email,
                 'code' => $code,
             ]);
