@@ -33,7 +33,7 @@ class CheckNeedVerification
             ])->where('expired_at', '>', Carbon::now())
                 ->get()
                 ->first();
-            $code = SixDigitGenerator::generate();
+            $code = $accountVerificationCode === null ? SixDigitGenerator::generate() : $accountVerificationCode->code;
             if ($accountVerificationCode == null)
                 AccountVerificationCode::create([
                     'code' => $code,
