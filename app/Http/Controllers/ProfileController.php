@@ -84,6 +84,7 @@ class ProfileController extends Controller
 
         $posts = Post::with([
             'account',
+            'account.privacy_setting',
             'ingredients',
             'ingredients.ingredient',
             'likes',
