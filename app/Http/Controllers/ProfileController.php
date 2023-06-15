@@ -207,7 +207,7 @@ class ProfileController extends Controller
     public function requests(Request $request, $id)
     {
 
-        $requests = FollowerRequest::where('followed_account_id', $id)->get();
+        $requests = FollowerRequest::with('account')->where('followed_account_id', $id)->get();
 
         return JsonResponse::success('Request has succeed!', [
             'requests' => $requests->toArray()
