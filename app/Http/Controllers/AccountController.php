@@ -29,6 +29,7 @@ class AccountController extends Controller
             'id' => $account->id,
             'username' => $account->username,
             'privacy' => $account->privacy_setting->is_private,
+            'is_institutional' => $account->is_institutional
         ]);
     }
 
