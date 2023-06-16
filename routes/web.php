@@ -133,4 +133,6 @@ Route::prefix('/report')
 Route::prefix('/recommendation')
     ->group(function () {
         Route::get('/', [RecommendationController::class, 'recommendation']);
+        Route::get('/group', [RecommendationController::class, 'groupRecommendation']);
+        Route::get('/history', [RecommendationController::class, 'history']);
     });
