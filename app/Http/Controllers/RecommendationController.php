@@ -48,6 +48,7 @@ class RecommendationController extends Controller
                 'steps',
                 'tags',
                 'comments',
+                'account',
                 'institutional_post'
             ])->find($post->post_id)
         ]);
