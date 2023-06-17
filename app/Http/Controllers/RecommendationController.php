@@ -107,15 +107,15 @@ class RecommendationController extends Controller
     public function history(Request $request)
     {
         return JsonResponse::success('Request has succeed', [
-            'posts' => Post::with([
-                'ingredients',
-                'ingredients.ingredient',
-                'likes',
-                'steps',
-                'tags',
-                'comments',
-                'account',
-                'institutional_post'
+            'posts' => RecommendationHistory::with([
+                'post.ingredients',
+                'post.ingredients.ingredient',
+                'post.likes',
+                'post.steps',
+                'post.tags',
+                'post.comments',
+                'post.account',
+                'post.institutional_post'
             ])->where('account_id', $request->input('account_id'))
                 ->get()
                 ->toArray()
